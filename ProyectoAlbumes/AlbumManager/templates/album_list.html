@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+{% block content %}
+<h2>Mis Álbumes</h2>
+<a href="{% url 'album_create' %}" class="btn btn-success mb-3">Nuevo Álbum</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Título</th>
+      <th>Artista</th>
+      <th>Género</th>
+      <th>Fecha</th>
+      <th>Canciones</th>
+      <th>Explícito</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for album in albumes %}
+      <tr>
+        <td>{{ album.titulo }}</td>
+        <td>{{ album.artista }}</td>
+        <td>{{ album.genero }}</td>
+        <td>{{ album.fecha_lanzamiento }}</td>
+        <td>{{ album.num_canciones }}</td>
+        <td>{{ album.es_explicit|yesno:"Sí,No" }}</td>
+        <td>
+          <a href="{% url 'album_edit' album.pk %}" class="btn btn-warning btn-sm">Editar</a>
+          <a href="{% url 'album_delete' album.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="7" class="text-center">No tienes álbumes aún.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

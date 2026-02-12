@@ -1,0 +1,14 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Django
+*.sqlite3
+/static/
+/media/
+
+# Environment
+env/
+venv/

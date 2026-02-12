@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+{% block content %}
+<h2>Eliminar Álbum</h2>
+<p>¿Seguro que quieres eliminar "{{ album.titulo }}"?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Eliminar</button>
+  <a href="{% url 'album_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'index.html' %}
+{% block content %}
+<h2>{{ accion }} Álbum</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">{{ accion }}</button>
+  <a href="{% url 'album_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}
