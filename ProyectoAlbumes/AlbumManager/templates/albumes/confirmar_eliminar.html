@@ -2,10 +2,10 @@
 {% block title %}Eliminar Álbum{% endblock %}
 {% block content %}
 <h2>Eliminar Álbum</h2>
-<p>¿Estás seguro que quieres eliminar "{{ obj.titulo }}"?</p>
+<p>¿Estás seguro de que quieres eliminar el álbum "{{ album.titulo }}"?</p>
 <form method="post">
     {% csrf_token %}
-    <button class="btn btn-danger">Eliminar</button>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
     <a href="{% url 'lista_albumes' %}" class="btn btn-secondary">Cancelar</a>
 </form>
 {% endblock %}

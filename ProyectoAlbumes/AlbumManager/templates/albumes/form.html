@@ -1,11 +1,47 @@
 {% extends "base.html" %}
 {% block title %}{{ accion }} Álbum{% endblock %}
+
 {% block content %}
-<h2>{{ accion }} Álbum</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn btn-success">{{ accion }}</button>
-    <a href="{% url 'lista_albumes' %}" class="btn btn-secondary">Cancelar</a>
-</form>
+<div class="container mt-4">
+    <h2 class="mb-4">{{ accion }} Álbum</h2>
+
+    <form method="post" class="row g-3">
+        {% csrf_token %}
+
+        <div class="col-md-6">
+            <label class="form-label">Título</label>
+            {{ form.titulo }}
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Artista</label>
+            {{ form.artista }}
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Fecha de lanzamiento</label>
+            {{ form.fecha_lanzamiento }}
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Número de canciones</label>
+            {{ form.num_canciones }}
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Explicit</label><br>
+            {{ form.es_explicit }}
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label">Usuario</label>
+            {{ form.usuario }}
+        </div>
+
+        <div class="col-12 mt-3">
+            <button type="submit" class="btn btn-success">Guardar</button>
+            <a href="{% url 'lista_albumes' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

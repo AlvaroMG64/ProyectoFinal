@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Artistas{% endblock %}
 {% block content %}
-<h2>Artistas</h2>
-<a href="{% url 'crear_artista' %}" class="btn btn-success mb-3">Crear Artista</a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Artistas</h2>
+    <a class="btn btn-primary" href="{% url 'artista_create' %}">Crear Artista</a>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -19,8 +22,8 @@
             <td>{{ artista.pais }}</td>
             <td>{{ artista.genero }}</td>
             <td>
-                <a href="{% url 'editar_artista' artista.pk %}" class="btn btn-sm btn-primary">Editar</a>
-                <a href="{% url 'eliminar_artista' artista.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                <a class="btn btn-sm btn-warning" href="{% url 'editar_artista' artista.pk %}">Editar</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'eliminar_artista' artista.pk %}">Eliminar</a>
             </td>
         </tr>
         {% empty %}

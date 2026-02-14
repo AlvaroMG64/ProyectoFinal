@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Canciones{% endblock %}
 {% block content %}
-<h2>Canciones</h2>
-<a href="{% url 'crear_cancion' %}" class="btn btn-success mb-3">Crear Canción</a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Canciones</h2>
+    <a class="btn btn-primary" href="{% url 'cancion_create' %}">Crear Canción</a>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Título</th>
             <th>Álbum</th>
-            <th>Duración (s)</th>
+            <th>Duración</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -16,11 +19,11 @@
         {% for cancion in canciones %}
         <tr>
             <td>{{ cancion.titulo }}</td>
-            <td>{{ cancion.album.titulo }}</td>
+            <td>{{ cancion.album }}</td>
             <td>{{ cancion.duracion }}</td>
             <td>
-                <a href="{% url 'editar_cancion' cancion.pk %}" class="btn btn-sm btn-primary">Editar</a>
-                <a href="{% url 'eliminar_cancion' cancion.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                <a class="btn btn-sm btn-warning" href="{% url 'editar_cancion' cancion.pk %}">Editar</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'eliminar_cancion' cancion.pk %}">Eliminar</a>
             </td>
         </tr>
         {% empty %}
