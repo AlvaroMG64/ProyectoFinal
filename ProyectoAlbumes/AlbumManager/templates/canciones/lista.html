@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Canciones{% endblock %}
+{% block content %}
+<h2>Canciones</h2>
+<a href="{% url 'crear_cancion' %}" class="btn btn-success mb-3">Crear Canción</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Álbum</th>
+            <th>Duración (s)</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cancion in canciones %}
+        <tr>
+            <td>{{ cancion.titulo }}</td>
+            <td>{{ cancion.album.titulo }}</td>
+            <td>{{ cancion.duracion }}</td>
+            <td>
+                <a href="{% url 'editar_cancion' cancion.pk %}" class="btn btn-sm btn-primary">Editar</a>
+                <a href="{% url 'eliminar_cancion' cancion.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No hay canciones.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

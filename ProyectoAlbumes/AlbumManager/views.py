@@ -1,123 +1,123 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Album, Artista, Cancion
-from .forms import AlbumForm, ArtistaForm, CancionForm
+from .models import Artista, Album, Cancion
+from .forms import ArtistaForm, AlbumForm, CancionForm
 
-# -------------------------
-# ARTISTAS
-# -------------------------
+# -------------------
+# Artista Views
+# -------------------
 @login_required
-def artista_list(request):
+def lista_artistas(request):
     artistas = Artista.objects.all()
-    return render(request, 'artista_list.html', {'artistas': artistas})
+    return render(request, "artistas/lista.html", {"artistas": artistas})
 
 @login_required
-def artista_create(request):
-    if request.method == 'POST':
+def crear_artista(request):
+    if request.method == "POST":
         form = ArtistaForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('artista_list')
+            return redirect("lista_artistas")
     else:
         form = ArtistaForm()
-    return render(request, 'artista_form.html', {'form': form, 'accion': 'Crear'})
+    return render(request, "artistas/form.html", {"form": form, "accion": "Crear"})
 
 @login_required
-def artista_edit(request, pk):
+def editar_artista(request, pk):
     artista = get_object_or_404(Artista, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = ArtistaForm(request.POST, instance=artista)
         if form.is_valid():
             form.save()
-            return redirect('artista_list')
+            return redirect("lista_artistas")
     else:
         form = ArtistaForm(instance=artista)
-    return render(request, 'artista_form.html', {'form': form, 'accion': 'Editar'})
+    return render(request, "artistas/form.html", {"form": form, "accion": "Editar"})
 
 @login_required
-def artista_delete(request, pk):
+def eliminar_artista(request, pk):
     artista = get_object_or_404(Artista, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         artista.delete()
-        return redirect('artista_list')
-    return render(request, 'artista_confirm_delete.html', {'artista': artista})
+        return redirect("lista_artistas")
+    return render(request, "artistas/confirmar_eliminar.html", {"obj": artista})
 
-# -------------------------
-# ALBUMES
-# -------------------------
+# -------------------
+# Album Views
+# -------------------
 @login_required
-def album_list(request):
-    albums = Album.objects.filter(usuario=request.user)
-    return render(request, 'album_list.html', {'albumes': albums})
+def lista_albumes(request):
+    albumes = Album.objects.filter(usuario=request.user)
+    return render(request, "albumes/lista.html", {"albumes": albumes})
 
 @login_required
-def album_create(request):
-    if request.method == 'POST':
+def crear_album(request):
+    if request.method == "POST":
         form = AlbumForm(request.POST)
         if form.is_valid():
             album = form.save(commit=False)
             album.usuario = request.user
             album.save()
-            return redirect('album_list')
+            return redirect("lista_albumes")
     else:
         form = AlbumForm()
-    return render(request, 'album_form.html', {'form': form, 'accion': 'Crear'})
+    return render(request, "albumes/form.html", {"form": form, "accion": "Crear"})
 
 @login_required
-def album_edit(request, pk):
+def editar_album(request, pk):
     album = get_object_or_404(Album, pk=pk, usuario=request.user)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AlbumForm(request.POST, instance=album)
         if form.is_valid():
             form.save()
-            return redirect('album_list')
+            return redirect("lista_albumes")
     else:
         form = AlbumForm(instance=album)
-    return render(request, 'album_form.html', {'form': form, 'accion': 'Editar'})
+    return render(request, "albumes/form.html", {"form": form, "accion": "Editar"})
 
 @login_required
-def album_delete(request, pk):
+def eliminar_album(request, pk):
     album = get_object_or_404(Album, pk=pk, usuario=request.user)
-    if request.method == 'POST':
+    if request.method == "POST":
         album.delete()
-        return redirect('album_list')
-    return render(request, 'album_confirm_delete.html', {'album': album})
+        return redirect("lista_albumes")
+    return render(request, "albumes/confirmar_eliminar.html", {"obj": album})
 
-# -------------------------
-# CANCIONES
-# -------------------------
+# -------------------
+# Cancion Views
+# -------------------
 @login_required
-def cancion_list(request):
-    canciones = Cancion.objects.filter(album__usuario=request.user)
-    return render(request, 'cancion_list.html', {'canciones': canciones})
+def lista_canciones(request):
+    canciones = Cancion.objects.all()
+    return render(request, "canciones/lista.html", {"canciones": canciones})
 
 @login_required
-def cancion_create(request):
-    if request.method == 'POST':
+def crear_cancion(request):
+    if request.method == "POST":
         form = CancionForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('cancion_list')
+            return redirect("lista_canciones")
     else:
         form = CancionForm()
-    return render(request, 'cancion_form.html', {'form': form, 'accion': 'Crear'})
+    return render(request, "canciones/form.html", {"form": form, "accion": "Crear"})
 
 @login_required
-def cancion_edit(request, pk):
-    cancion = get_object_or_404(Cancion, pk=pk, album__usuario=request.user)
-    if request.method == 'POST':
+def editar_cancion(request, pk):
+    cancion = get_object_or_404(Cancion, pk=pk)
+    if request.method == "POST":
         form = CancionForm(request.POST, instance=cancion)
         if form.is_valid():
             form.save()
-            return redirect('cancion_list')
+            return redirect("lista_canciones")
     else:
         form = CancionForm(instance=cancion)
-    return render(request, 'cancion_form.html', {'form': form, 'accion': 'Editar'})
+    return render(request, "canciones/form.html", {"form": form, "accion": "Editar"})
 
 @login_required
-def cancion_delete(request, pk):
-    cancion = get_object_or_404(Cancion, pk=pk, album__usuario=request.user)
-    if request.method == 'POST':
+def eliminar_cancion(request, pk):
+    cancion = get_object_or_404(Cancion, pk=pk)
+    if request.method == "POST":
         cancion.delete()
-        return redirect('cancion_list')
-    return render(request, 'cancion_confirm_delete.html', {'cancion': cancion})
+        return redirect("lista_canciones")
+    return render(request, "canciones/confirmar_eliminar.html", {"obj": cancion})
