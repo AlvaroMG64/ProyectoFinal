@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Artistas{% endblock %}
+
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Artistas</h2>
-    <a class="btn btn-primary" href="{% url 'artista_create' %}">Crear Artista</a>
+    <a class="btn btn-primary" href="{% url 'crear_artista' %}">Crear Artista</a>
 </div>
 
 <table class="table table-striped">

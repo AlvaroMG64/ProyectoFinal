@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load tz %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="card shadow" style="width: 500px;">
+        <div class="card-body text-center">
+            <h1 class="mb-4">Dashboard</h1>
+
+            <p class="fs-5">
+                <strong>Usuario:</strong> {{ user.username }}
+            </p>
+
+            <p class="fs-5">
+                <strong>Fecha y hora:</strong>
+                {{ now|localtime|date:"d/m/Y H:i" }}
+            </p>
+
+            <hr>
+
+            <p class="text-muted">
+                Bienvenido al panel de control de AlbumManager
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
