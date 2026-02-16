@@ -3,20 +3,21 @@ from .models import Artista, Album, Cancion
 
 @admin.register(Artista)
 class ArtistaAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "pais", "genero")
-    search_fields = ("nombre", "pais", "genero")
-    list_filter = ("pais", "genero")
+    list_display = ('nombre', 'pais',)
+    search_fields = ('nombre', 'pais',)
+    list_filter = ('pais',)
+
 
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "artista", "fecha_lanzamiento", "num_canciones", "es_explicit", "usuario")
-    list_filter = ("artista", "es_explicit", "fecha_lanzamiento")
-    search_fields = ("titulo",)
-    autocomplete_fields = ("artista", "usuario")
+    list_display = ('titulo', 'artista', 'fecha_lanzamiento', 'num_canciones', 'es_explicit', 'usuario')
+    list_filter = ('fecha_lanzamiento', 'es_explicit')
+    search_fields = ('titulo', 'artista__nombre',)
+    autocomplete_fields = ('artista', 'usuario',)
+
 
 @admin.register(Cancion)
 class CancionAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "album", "duracion")
-    list_filter = ("album",)
-    search_fields = ("titulo",)
-    autocomplete_fields = ("album",)
+    list_display = ('titulo', 'album', 'duracion')
+    search_fields = ('titulo', 'album__titulo',)
+    autocomplete_fields = ('album',)
