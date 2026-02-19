@@ -1,4 +1,5 @@
 from django import forms
+from datetime import timedelta
 from .models import Artista, Album, Cancion
 
 
@@ -31,11 +32,23 @@ class AlbumForm(forms.ModelForm):
 
 
 class CancionForm(forms.ModelForm):
+    duracion = forms.CharField(
+        label="Duración (MM:SS)",
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "ej. 03:45"})
+    )
+
     class Meta:
         model = Cancion
         fields = "__all__"
         widgets = {
             "titulo": forms.TextInput(attrs={"class": "form-control"}),
             "album": forms.Select(attrs={"class": "form-select"}),
-            "duracion": forms.NumberInput(attrs={"class": "form-control"}),
         }
+
+    def clean_duracion(self):
+        data = self.cleaned_data['duracion']
+        try:
+            minutos, segundos = map(int, data.split(":"))
+            return timedelta(minutes=minutos, seconds=segundos)
+        except Exception:
+            raise forms.ValidationError("Introduce la duración en formato MM:SS")

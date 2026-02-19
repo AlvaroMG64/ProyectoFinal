@@ -59,18 +59,21 @@ Rutas principales:
 
 ### 🏠 Dashboard
 
-- Card centrado sin header
+- Card centrado
 - Muestra el nombre del usuario autenticado
-- Fecha y hora en formato español
+- Fecha y hora en formato español `DD/MM/AAAA HH:MM:SS`
+- Mensajes de reglas de negocio:
+  - "Un álbum no puede tener más de 20 canciones."  
+  - "Un artista no puede lanzar más de 2 álbumes en el mismo año."  
+  - "Eliminar un álbum eliminará sus canciones asociadas."  
 
 ### 🎵 Gestión de Álbumes
 
-- Listar álbumes
+- Listar álbumes (fecha en formato `DD/MM/AAAA`)
 - Crear álbum
 - Editar álbum
-- Eliminar álbum
-
-El número de canciones se calcula automáticamente.
+- Eliminar álbum (Cascada: borra canciones asociadas)
+- Número de canciones calculado automáticamente
 
 ### 🎤 Gestión de Artistas
 
@@ -78,11 +81,12 @@ El número de canciones se calcula automáticamente.
 - Crear artista
 - Editar artista
 - Eliminar artista
+- Campo **Género** obligatorio
 
 ### 🎶 Gestión de Canciones
 
-- Listar canciones
-- Crear canción
+- Listar canciones (duración en formato `MM:SS`)
+- Crear canción (input adaptado a minutos:segundos)
 - Editar canción
 - Eliminar canción
 
@@ -91,20 +95,26 @@ El número de canciones se calcula automáticamente.
 ## 🧠 Modelos principales
 
 ### Artista
-- Nombre
-- Nacionalidad
-- Fecha de nacimiento
+- nombre (CharField)
+- pais (CharField)
+- genero (CharField)  # obligatorio
 
-### Album
-- Título
-- Artista (ForeignKey)
-- Fecha de lanzamiento
-- Explicit (Boolean)
+### Álbum
+- titulo (CharField)
+- artista (ForeignKey a Artista)
+- fecha_lanzamiento (DateField)
+- es_explicit (BooleanField)
+- usuario (ForeignKey a User)
+- num_canciones (calculado automáticamente)
+- **Reglas de negocio:**
+  - Máximo 20 canciones por álbum
+  - Un artista no puede lanzar más de 2 álbumes en el mismo año
+  - Al eliminar un álbum, se eliminan sus canciones asociadas
 
 ### Cancion
-- Título
-- Duración
-- Álbum (ForeignKey)
+- titulo (CharField)
+- duracion (DurationField, editable en MM:SS)
+- album (ForeignKey a Álbum)
 
 ---
 

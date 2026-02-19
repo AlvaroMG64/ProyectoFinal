@@ -2,7 +2,10 @@
 {% block title %}Eliminar Canción{% endblock %}
 {% block content %}
 <h2>Eliminar Canción</h2>
-<p>¿Estás seguro de que quieres eliminar la canción "{{ cancion.titulo }}"?</p>
+<p>¿Estás seguro de que quieres eliminar la canción <strong>"{{ cancion.titulo }}"</strong>?</p>
+{% if mensaje_cascada %}
+    <p class="text-danger">{{ mensaje_cascada }}</p>
+{% endif %}
 <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Eliminar</button>

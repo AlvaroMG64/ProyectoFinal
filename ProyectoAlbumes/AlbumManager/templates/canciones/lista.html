@@ -21,7 +21,7 @@
         <tr>
             <td>{{ cancion.titulo }}</td>
             <td>{{ cancion.album }}</td>
-            <td>{{ cancion.duracion }}</td>
+            <td>{{ cancion.duracion_mmss }}</td>
             <td>
                 <a class="btn btn-sm btn-warning" href="{% url 'editar_cancion' cancion.pk %}">Editar</a>
                 <a class="btn btn-sm btn-danger" href="{% url 'eliminar_cancion' cancion.pk %}">Eliminar</a>

@@ -23,7 +23,7 @@
         <tr>
             <td>{{ album.titulo }}</td>
             <td>{{ album.artista }}</td>
-            <td>{{ album.fecha_lanzamiento }}</td>
+            <td>{{ album.fecha_lanzamiento |date:"d/m/Y" }}</td>
             <td>{{ album.num_canciones }}</td>
             <td>{{ album.es_explicit|yesno:"Sí,No" }}</td>
             <td>

@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 class Artista(models.Model):
     nombre = models.CharField(max_length=100)
     pais = models.CharField(max_length=100)
+    genero = models.CharField(max_length=150)
 
     def __str__(self):
         return self.nombre
@@ -54,3 +55,10 @@ class Cancion(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+    def duracion_mmss(self):
+        """Devuelve la duración en formato MM:SS sin horas."""
+        total_seconds = int(self.duracion.total_seconds())
+        minutos = total_seconds // 60
+        segundos = total_seconds % 60
+        return f"{minutos:02d}:{segundos:02d}"
