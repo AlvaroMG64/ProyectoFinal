@@ -214,4 +214,4 @@ http://127.0.0.1:8000/login/
 
 ## 📄 Licencia
 
-Proyecto educativo sin fines comerciales.
+Proyecto educativo sin fines comerciales
